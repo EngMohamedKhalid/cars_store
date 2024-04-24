@@ -38,9 +38,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ImageWidget(
                   imageUrl: AppImages.appLogo,
                   width: 100.w,
-                  height: 150.h,
+                  height: 200.h,
                 ),
-                50.verticalSpace,
+                // 50.verticalSpace,
                 CustomFormField(
                   hint: "Enter Name".tr(),
                   controller: cu.registerNameController,

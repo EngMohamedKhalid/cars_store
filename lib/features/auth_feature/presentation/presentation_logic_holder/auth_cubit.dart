@@ -11,6 +11,7 @@ import '../../../../app/utils/hanlders/error_state_handler.dart';
 import '../../../../app/utils/helper.dart';
 import '../../../../app/utils/navigation_helper.dart';
 import '../../../../app/widgets/flutter_toast.dart';
+import '../../../home_feature/presentation/screens/home_screen.dart';
 import '../../domain/use_cases/auth_usecases/resend_otp_usecase.dart';
 import '../screens/login_screen.dart';
 import '../screens/reset_password_screen.dart';
@@ -59,7 +60,7 @@ class AuthCubit extends Cubit<AuthState> {
       email:loginEmailController.text ,
       password: loginPasswordController.text,
     ).then((value) async{
-      // navigateTo(HomeScreen(),removeAll: true);
+      navigateTo(HomeScreen(),removeAll: true);
       showToast(msg: "You logged as ${value.user?.email}",
           backgroundColor: AppColors.mainColor, textColor: Colors.white);
       }).catchError((onError){
@@ -74,7 +75,7 @@ class AuthCubit extends Cubit<AuthState> {
       email:registerEmailController.text ,
       password: registerPassController.text,
     ).then((value)async{
-      // navigateTo(const HomeScreen(),removeAll: true);
+       navigateTo(const HomeScreen(),removeAll: true);
       showToast(msg: "You logged as ${value.user?.email}",
           backgroundColor: AppColors.mainColor, textColor: Colors.white);
       await firebaseFireStore.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).set(

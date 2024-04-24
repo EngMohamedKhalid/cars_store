@@ -1,3 +1,4 @@
+import 'package:cars_store/features/home_feature/presentation/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +22,10 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
       late Widget widget;
-      if (FirebaseAuth.instance.currentUser==null) {
+      if (FirebaseAuth.instance.currentUser?.uid==null) {
         widget = const LoginScreen();
       }else{
-        widget = const LoginScreen();
+        widget = const HomeScreen();
       }
       navigateTo(widget,removeAll: true);
     });

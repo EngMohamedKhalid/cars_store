@@ -32,7 +32,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 ImageWidget(
                   imageUrl: AppImages.appLogo,
                   width: 100.w,
-                  height: 150.h,
+                  height: 200.h,
                 ),
                 16.verticalSpace,
                 TextWidget(

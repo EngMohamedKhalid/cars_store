@@ -74,7 +74,7 @@ class AppAssets{
 }
 
 class AppImages{
-  static const String appLogo="${imagesBase}logo.webp";
+  static const String appLogo="${imagesBase}app_logo.png";
   static const String spots="${imagesBase}spots.png";
   static const String clean="${imagesBase}clean.png";
   static const String user="${imagesBase}user.jpg";

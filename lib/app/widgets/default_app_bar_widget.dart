@@ -46,8 +46,12 @@ class DefaultAppBarWidget extends StatelessWidget
           )
       ):const RoundedRectangleBorder(),
       centerTitle: centerTitle,
-      systemOverlayStyle: systemUiOverlayStyle,
-      backgroundColor:backColor ,
+      systemOverlayStyle: systemUiOverlayStyle??SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: Colors.transparent,
+      ),
+
+      backgroundColor:backColor??AppColors.scaffoldBackGround ,
       leading: canBack
           ? IconButton(
         alignment: Alignment.center,
@@ -55,22 +59,10 @@ class DefaultAppBarWidget extends StatelessWidget
                   () {
                     Navigator.pop(context);
                   },
-              icon: Container(
-                width: 45.w,
-                height: 45.w,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color:shapeBorder?AppColors.geryF0 : Colors.white,
-                    // border: Border.all(
-                    //   color: AppColors.white,
-                    //   width: 1,
-                    // ),
-                ),
-                child:leading?? Icon(
-                  Icons.arrow_back_ios,
-                  color:AppColors.mainColor,
-                  size: 20.sp,
-                ),
+              icon: leading?? Icon(
+                Icons.arrow_back_ios,
+                color:AppColors.black,
+                size: 20.sp,
               ),
             )
           : null,
@@ -78,7 +70,7 @@ class DefaultAppBarWidget extends StatelessWidget
         title: title??"",
         fontFamily: AppFonts.bold,
         titleSize: 18.sp,
-          titleColor: AppColors.mainColor
+          titleColor: AppColors.black
       ),
       actions: actions
           ? [

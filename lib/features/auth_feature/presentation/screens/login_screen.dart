@@ -37,10 +37,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 50.verticalSpace,
                 ImageWidget(
                   imageUrl: AppImages.appLogo,
-                  width: 100.w,
-                  height: 150.h,
+                  width: 150.w,
+                  height: 200.h,
                 ),
-                50.verticalSpace,
+                // 50.verticalSpace,
                 CustomFormField(
                   hint: "enterEmail".tr(),
                   controller: cu.loginEmailController,
@@ -110,8 +110,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 16.verticalSpace,
               ],
             ),
-
-
           );
         },
       ),
