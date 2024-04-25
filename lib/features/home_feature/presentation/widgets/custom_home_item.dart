@@ -25,7 +25,7 @@ class CustomHomeItem extends StatelessWidget {
           decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.fill,
-                image: AssetImage(image),
+                image: NetworkImage(image),
               ),
               borderRadius: BorderRadius.circular(16.sp)
           ),

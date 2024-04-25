@@ -1,4 +1,5 @@
 import 'package:cars_store/app/widgets/carousel_widget/carousel_widget.dart';
+import 'package:cars_store/app/widgets/loading.dart';
 import 'package:cars_store/features/home_feature/presentation/screens/all_cars_screen.dart';
 import 'package:cars_store/features/home_feature/presentation/screens/video_play_screen.dart';
 import 'package:cars_store/features/home_feature/presentation/widgets/custom_home_item.dart';
@@ -115,53 +116,67 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.all(16.sp),
               children: [
                 CarouselWidget(
-                    items:List<Widget>.generate(
-                      images.length,
-                          (index) =>
-                          InkWell(
-                            onTap: (){
-                              navigateTo(VideoPlayerScreen(url: reals[index]));
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color:  const Color(0xffD4E5D3),
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: AssetImage(images[index]),
-                                  ),
-                                  borderRadius: BorderRadius.circular(16.sp)
-                              ),
+                  items:List<Widget>.generate(
+                    images.length,
+                        (index) =>
+                        InkWell(
+                          onTap: (){
+                            navigateTo(VideoPlayerScreen(url: reals[index]));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color:  const Color(0xffD4E5D3),
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: AssetImage(images[index]),
+                                ),
+                                borderRadius: BorderRadius.circular(16.sp)
                             ),
                           ),
-                    ) ,
+                        ),
+                  ) ,
                 ),
                 10.verticalSpace,
                 Row(
                   children: [
                     TextWidget(
-                        title: "Cars For Sale",
-                        titleColor: Colors.black,
-                        titleSize: 18.sp,
+                      title: "Cars For Sale",
+                      titleColor: Colors.black,
+                      titleSize: 18.sp,
                       titleFontWeight: FontWeight.w500,
                     ),
                   ],
                 ),
-                ListView.separated(
-                  itemCount: images.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          navigateTo(AllCarsScreen());
+                StreamBuilder(
+                  stream: FirebaseFirestore.instance.collection("cats").snapshots(),
+                  builder: (context, snapshot) {
+                    if(snapshot.hasData) {
+                      return ListView.separated(
+                        itemCount: snapshot.data?.docs.length??0,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                              onTap: () {
+                                navigateTo(AllCarsScreen());
+                              },
+                              child: CustomHomeItem(
+                                image: snapshot.data?.docs[index]["image"],
+                                title: snapshot.data?.docs[index]["name"],
+                              ));
                         },
-                          child: CustomHomeItem(image: images[index],));
-                    },
-                  separatorBuilder: (context, index) => 16.verticalSpace,
+                        separatorBuilder: (context, index) => 16.verticalSpace,
+                      );
+                    }else {
+                      return const Center(child: Loading());
+                    }
+                  }
                 )
               ],
             ),
-          ),
+          )
+
+
 
         ],
       ),
