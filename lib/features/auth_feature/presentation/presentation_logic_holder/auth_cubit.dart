@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:http/http.dart' as http;
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +122,5 @@ class AuthCubit extends Cubit<AuthState> {
     });
     emit(AuthInitial());
   }
-
-
 
 }

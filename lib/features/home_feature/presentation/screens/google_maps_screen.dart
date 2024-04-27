@@ -26,6 +26,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         initialCameraPosition:  CameraPosition(
           target: LatLng(widget.lat, widget.long),
           zoom: 10.4746,
+          bearing: 2,
+          tilt: 5
         ),
         onMapCreated: (con) {
           controller = con;
@@ -43,7 +45,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
         polylines: {
           Polyline(
               polylineId: const PolylineId("1"),
-              color: AppColors.mainColor,
+              color: AppColors.green
+              ,
               points: [
                 LatLng(widget.lat, widget.long),
                 LatLng(myPosition!.latitude, myPosition!.longitude),

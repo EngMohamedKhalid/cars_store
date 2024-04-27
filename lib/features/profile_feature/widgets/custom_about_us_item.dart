@@ -41,17 +41,17 @@ class CustomAboutUsItem extends StatelessWidget {
                   children: [
                     TextWidget(
                       title: aboutUsModel.name,
-                      titleColor: AppColors.mainColor,
+                      titleColor: AppColors.black,
                       titleAlign: TextAlign.start,
                       titleSize: 20.sp,
                     ),
-                    3.verticalSpace,
-                    TextWidget(
-                      title: aboutUsModel.job,
-                      titleColor: AppColors.gery455,
-                      titleAlign: TextAlign.start,
-                      titleSize: 15.sp,
-                    ),
+                    // 3.verticalSpace,
+                    // TextWidget(
+                    //   title: aboutUsModel.job??"",
+                    //   titleColor: AppColors.gery455,
+                    //   titleAlign: TextAlign.start,
+                    //   titleSize: 15.sp,
+                    // ),
                     10.verticalSpace,
                     Row(
                       children: [
@@ -71,7 +71,7 @@ class CustomAboutUsItem extends StatelessWidget {
                           },
                           child: TextWidget(
                             title: aboutUsModel.phone,
-                            titleColor: AppColors.mainColor,
+                            titleColor: AppColors.green,
                             titleSize: 16.sp,
                             textDecoration: TextDecoration.underline,
                           ),
@@ -98,7 +98,7 @@ class CustomAboutUsItem extends StatelessWidget {
                             },
                             child: TextWidget(
                               title: aboutUsModel.emil,
-                              titleColor: AppColors.mainColor,
+                              titleColor: AppColors.green,
                               titleSize: 15.sp,
                               titleAlign: TextAlign.start,  
                               textDecoration: TextDecoration.underline,

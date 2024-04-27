@@ -4,6 +4,7 @@ import 'package:cars_store/app/widgets/default_app_bar_widget.dart';
 import 'package:cars_store/app/widgets/image_widget.dart';
 import 'package:cars_store/app/widgets/text_widget.dart';
 import 'package:cars_store/features/home_feature/presentation/widgets/custom_row_item.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,14 +13,21 @@ import '../../../../app/widgets/button_widget.dart';
 import '../../../profile_feature/widgets/custom_about_us_item.dart';
 import 'google_maps_screen.dart';
 
-class CarDetailsScreen extends StatelessWidget {
-  const CarDetailsScreen({super.key});
+class CarDetailsScreen extends StatefulWidget {
+  const CarDetailsScreen({super.key, required this.documentSnapshot});
+ final QueryDocumentSnapshot<Map<String, dynamic>> documentSnapshot;
 
+  @override
+  State<CarDetailsScreen> createState() => _CarDetailsScreenState();
+}
+
+class _CarDetailsScreenState extends State<CarDetailsScreen> {
+  String? imageUrl ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DefaultAppBarWidget(
-        title: "BMW Details",
+        title: widget.documentSnapshot["name"],
         centerTitle: true,
       ),
       body: Directionality(
@@ -27,10 +35,107 @@ class CarDetailsScreen extends StatelessWidget {
         child: ListView(
           children: [
             ImageWidget(
-                imageUrl: "assets/images/3.jpeg",
+                imageUrl:imageUrl?? widget.documentSnapshot["image"],
               width: 200.w,
               height: 250.h,
               fit: BoxFit.fill,
+            ),
+            8.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      imageUrl = widget.documentSnapshot["image"];
+                    });
+                  },
+                  child: Container(
+                    width: 60.w,
+                    height: 60.h,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(widget.documentSnapshot["image"]),
+                      ),
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(
+                        color: AppColors.grey808080,
+                      )
+                    ),
+                  ),
+                ),
+                widget.documentSnapshot.data().containsKey("image2")?
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      imageUrl = widget.documentSnapshot["image2"];
+                    });
+                  },
+                  child: Container(
+                    width: 60.w,
+                    height: 60.h,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(widget.documentSnapshot["image2"]),
+                      ),
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(
+                        color: AppColors.grey808080,
+                      )
+                    ),
+                  ),
+                )
+                :0.horizontalSpace,
+                widget.documentSnapshot.data().containsKey("image3")?
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      imageUrl = widget.documentSnapshot["image3"];
+                    });
+                  },
+                  child: Container(
+                    width: 60.w,
+                    height: 60.h,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(widget.documentSnapshot["image3"]),
+                        ),
+                        borderRadius: BorderRadius.circular(8.r),
+                        border: Border.all(
+                          color: AppColors.grey808080,
+                        )
+                    ),
+                  ),
+                )
+                :0.horizontalSpace,
+                widget.documentSnapshot.data().containsKey("image4")?
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      imageUrl = widget.documentSnapshot["image4"];
+                    });
+                  },
+                  child: Container(
+                    width: 60.w,
+                    height: 60.h,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(widget.documentSnapshot["image4"]),
+                        ),
+                        borderRadius: BorderRadius.circular(8.r),
+                        border: Border.all(
+                          color: AppColors.grey808080,
+                        )
+                    ),
+                  ),
+                )
+                    :
+                0.horizontalSpace,
+              ],
             ),
             16.verticalSpace,
             Padding(
@@ -38,7 +143,7 @@ class CarDetailsScreen extends StatelessWidget {
               child: Row(
                 children: [
                   TextWidget(
-                      title: "3,100,000 L.E",
+                      title: widget.documentSnapshot["price"],
                     titleFontWeight: FontWeight.w600,
                     titleColor: AppColors.red,
                   ),
@@ -51,7 +156,7 @@ class CarDetailsScreen extends StatelessWidget {
               child: Row(
                 children: [
                   TextWidget(
-                      title: "Brand New BMW 200 - 2024",
+                      title: widget.documentSnapshot["model"],
                     titleFontWeight: FontWeight.bold,
                     titleColor: AppColors.black,
                     titleSize: 16.sp,
@@ -69,7 +174,7 @@ class CarDetailsScreen extends StatelessWidget {
                   ),
                   3.horizontalSpace,
                   TextWidget(
-                    title: "Alexandria, Egypt",
+                    title: "ElMahala ELkobra , ElShiShiny Mall",
                     titleFontWeight: FontWeight.w500,
                     titleColor: AppColors.black,
                     titleSize: 14.sp,
@@ -85,27 +190,32 @@ class CarDetailsScreen extends StatelessWidget {
                 children: [
                   CustomRowItem(
                     title1: "الماركه : ",
-                    title2: "BMW",
+                    title2: widget.documentSnapshot.data().containsKey("model")?
+                    widget.documentSnapshot["model"]:"",
                   ),
                   8.verticalSpace,
                   CustomRowItem(
                     title1: "السنة : ",
-                    title2: "2024",
+                    title2: widget.documentSnapshot.data().containsKey("year")?
+                    widget.documentSnapshot["year"]:"",
                   ),
                   8.verticalSpace,
                   CustomRowItem(
                     title1: "اللون : ",
-                    title2: "ابيض",
+                    title2: widget.documentSnapshot.data().containsKey("color")?
+                    widget.documentSnapshot["color"]:"",
                   ),
                   8.verticalSpace,
                   CustomRowItem(
-                    title1: "نوع الوقود : ",
-                    title2: "بنزين",
+                    title1: "نوع : ",
+                    title2: widget.documentSnapshot.data().containsKey("type")?
+                    widget.documentSnapshot["type"]:"Dinamic",
                   ),
                   8.verticalSpace,
                   CustomRowItem(
                     title1: "كيلومترات : ",
-                    title2: "0 الي 9999",
+                    title2: widget.documentSnapshot.data().containsKey("motor cc")?
+                    widget.documentSnapshot["motor cc"]:"0 to 9999",
                   ),
                 ],
               ),
@@ -125,8 +235,8 @@ class CarDetailsScreen extends StatelessWidget {
                 onPressed: () {
                   navigateTo(
                       GoogleMapScreen(
-                    lat:31.185105 ,
-                    long:29.934575
+                    lat:30.968686 ,
+                    long:31.168788
                   ),
                   );
                 },

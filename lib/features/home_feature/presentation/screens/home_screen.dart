@@ -12,6 +12,7 @@ import '../../../../app/utils/app_colors.dart';
 import '../../../../app/utils/helper.dart';
 import '../../../../app/widgets/text_widget.dart';
 import '../../../../main.dart';
+import '../../../profile_feature/screens/about_us_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -97,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Spacer(),
                 InkWell(
                   onTap: (){
-                    //navigateTo(const AboutUSScreen());
+                    navigateTo(const AboutUSScreen());
                   } ,
                   child: Icon(
                     Icons.groups,
@@ -158,7 +159,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context, index) {
                           return InkWell(
                               onTap: () {
-                                navigateTo(AllCarsScreen());
+                                navigateTo(AllCarsScreen(
+                                  appBarTitle: snapshot.data?.docs[index]["name"],
+                                  id: snapshot.data?.docs[index]["id"],
+                                ));
                               },
                               child: CustomHomeItem(
                                 image: snapshot.data?.docs[index]["image"],
