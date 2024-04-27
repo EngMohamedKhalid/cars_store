@@ -64,7 +64,7 @@ class _AboutUSScreenState extends State<AboutUSScreen> {
     return Scaffold(
       backgroundColor: AppColors.mainColor,
        appBar: const DefaultAppBarWidget(
-         title: "عن المطورين",
+         title: "About Developers",
        ),
         body: ListView.builder(
           itemCount: aboutUSList.length,

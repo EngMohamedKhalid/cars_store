@@ -30,198 +30,207 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
         title: widget.documentSnapshot["name"],
         centerTitle: true,
       ),
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: ListView(
-          children: [
-            ImageWidget(
-                imageUrl:imageUrl?? widget.documentSnapshot["image"],
-              width: 200.w,
-              height: 250.h,
-              fit: BoxFit.fill,
-            ),
-            8.verticalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      imageUrl = widget.documentSnapshot["image"];
-                    });
-                  },
-                  child: Container(
-                    width: 60.w,
-                    height: 60.h,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(widget.documentSnapshot["image"]),
-                      ),
-                      borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(
-                        color: AppColors.grey808080,
-                      )
+      body: ListView(
+        children: [
+          ImageWidget(
+              imageUrl:imageUrl?? widget.documentSnapshot["image"],
+            width: 200.w,
+            height: 250.h,
+            fit: BoxFit.fill,
+          ),
+          8.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    imageUrl = widget.documentSnapshot["image"];
+                  });
+                },
+                child: Container(
+                  width: 60.w,
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(widget.documentSnapshot["image"]),
                     ),
+                    borderRadius: BorderRadius.circular(8.r),
+                    border: Border.all(
+                      color: AppColors.grey808080,
+                    )
                   ),
                 ),
-                widget.documentSnapshot.data().containsKey("image2")?
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      imageUrl = widget.documentSnapshot["image2"];
-                    });
-                  },
-                  child: Container(
-                    width: 60.w,
-                    height: 60.h,
-                    decoration: BoxDecoration(
+              ),
+              widget.documentSnapshot.data().containsKey("image2")?
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    imageUrl = widget.documentSnapshot["image2"];
+                  });
+                },
+                child: Container(
+                  width: 60.w,
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(widget.documentSnapshot["image2"]),
+                    ),
+                    borderRadius: BorderRadius.circular(8.r),
+                    border: Border.all(
+                      color: AppColors.grey808080,
+                    )
+                  ),
+                ),
+              )
+              :0.horizontalSpace,
+              widget.documentSnapshot.data().containsKey("image3")?
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    imageUrl = widget.documentSnapshot["image3"];
+                  });
+                },
+                child: Container(
+                  width: 60.w,
+                  height: 60.h,
+                  decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(widget.documentSnapshot["image2"]),
+                        image: NetworkImage(widget.documentSnapshot["image3"]),
                       ),
                       borderRadius: BorderRadius.circular(8.r),
                       border: Border.all(
                         color: AppColors.grey808080,
                       )
-                    ),
                   ),
-                )
-                :0.horizontalSpace,
-                widget.documentSnapshot.data().containsKey("image3")?
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      imageUrl = widget.documentSnapshot["image3"];
-                    });
-                  },
-                  child: Container(
-                    width: 60.w,
-                    height: 60.h,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(widget.documentSnapshot["image3"]),
-                        ),
-                        borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(
-                          color: AppColors.grey808080,
-                        )
-                    ),
+                ),
+              )
+              :0.horizontalSpace,
+              widget.documentSnapshot.data().containsKey("image4")?
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    imageUrl = widget.documentSnapshot["image4"];
+                  });
+                },
+                child: Container(
+                  width: 60.w,
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(widget.documentSnapshot["image4"]),
+                      ),
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(
+                        color: AppColors.grey808080,
+                      )
                   ),
-                )
-                :0.horizontalSpace,
-                widget.documentSnapshot.data().containsKey("image4")?
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      imageUrl = widget.documentSnapshot["image4"];
-                    });
-                  },
-                  child: Container(
-                    width: 60.w,
-                    height: 60.h,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(widget.documentSnapshot["image4"]),
-                        ),
-                        borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(
-                          color: AppColors.grey808080,
-                        )
-                    ),
-                  ),
-                )
-                    :
-                0.horizontalSpace,
+                ),
+              )
+                  :
+              0.horizontalSpace,
+            ],
+          ),
+          16.verticalSpace,
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 16.w),
+            child: Row(
+              children: [
+                TextWidget(
+                    title: widget.documentSnapshot["price"],
+                  titleFontWeight: FontWeight.w600,
+                  titleColor: AppColors.red,
+                ),
               ],
             ),
-            16.verticalSpace,
-            Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 16.w),
-              child: Row(
-                children: [
-                  TextWidget(
-                      title: widget.documentSnapshot["price"],
-                    titleFontWeight: FontWeight.w600,
-                    titleColor: AppColors.red,
-                  ),
-                ],
-              ),
+          ),
+          5.verticalSpace,
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 16.w),
+            child: Row(
+              children: [
+                TextWidget(
+                    title: widget.documentSnapshot["model"],
+                  titleFontWeight: FontWeight.bold,
+                  titleColor: AppColors.black,
+                  titleSize: 16.sp,
+                ),
+              ],
             ),
-            5.verticalSpace,
-            Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 16.w),
-              child: Row(
-                children: [
-                  TextWidget(
-                      title: widget.documentSnapshot["model"],
-                    titleFontWeight: FontWeight.bold,
-                    titleColor: AppColors.black,
-                    titleSize: 16.sp,
-                  ),
-                ],
-              ),
+          ),
+          6.verticalSpace,
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 16.w),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.location_on_outlined,
+                ),
+                3.horizontalSpace,
+                TextWidget(
+                  title: "ElMahala ELkobra , ElShiShiny Mall",
+                  titleFontWeight: FontWeight.w500,
+                  titleColor: AppColors.black,
+                  titleSize: 14.sp,
+                ),
+              ],
             ),
-            6.verticalSpace,
-            Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 16.w),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.location_on_outlined,
-                  ),
-                  3.horizontalSpace,
-                  TextWidget(
-                    title: "ElMahala ELkobra , ElShiShiny Mall",
-                    titleFontWeight: FontWeight.w500,
-                    titleColor: AppColors.black,
-                    titleSize: 14.sp,
-                  ),
-                ],
-              ),
+          ),
+          16.verticalSpace,
+          Container(
+            color: AppColors.grey808080.withOpacity(.2),
+            padding: EdgeInsets.all(16.sp),
+            child: Column(
+              children: [
+                CustomRowItem(
+                  title1: "Name : ",
+                  title2: widget.documentSnapshot.data().containsKey("name")?
+                  widget.documentSnapshot["name"]:"",
+                ),
+                8.verticalSpace,
+                CustomRowItem(
+                  title1: "Model : ",
+                  title2: widget.documentSnapshot.data().containsKey("model")?
+                  widget.documentSnapshot["model"]:"",
+                ),
+                8.verticalSpace,
+                CustomRowItem(
+                  title1: "Body Type : ",
+                  title2: widget.documentSnapshot.data().containsKey("body type")?
+                  widget.documentSnapshot["body type"]:"",
+                ),
+                8.verticalSpace,
+                CustomRowItem(
+                  title1: "Year : ",
+                  title2: widget.documentSnapshot.data().containsKey("year")?
+                  widget.documentSnapshot["year"]:"",
+                ),
+                8.verticalSpace,
+                CustomRowItem(
+                  title1: "Color : ",
+                  title2: widget.documentSnapshot.data().containsKey("color")?
+                  widget.documentSnapshot["color"]:"",
+                ),
+                8.verticalSpace,
+                CustomRowItem(
+                  title1: "Type : ",
+                  title2: widget.documentSnapshot.data().containsKey("type")?
+                  widget.documentSnapshot["type"]:"Automatic",
+                ),
+                8.verticalSpace,
+                CustomRowItem(
+                  title1: "Motor CC : ",
+                  title2: widget.documentSnapshot.data().containsKey("motor cc")?
+                  widget.documentSnapshot["motor cc"]:"0 to 9999",
+                ),
+              ],
             ),
-            16.verticalSpace,
-            Container(
-              color: AppColors.grey808080.withOpacity(.2),
-              padding: EdgeInsets.all(16.sp),
-              child: Column(
-                children: [
-                  CustomRowItem(
-                    title1: "الماركه : ",
-                    title2: widget.documentSnapshot.data().containsKey("model")?
-                    widget.documentSnapshot["model"]:"",
-                  ),
-                  8.verticalSpace,
-                  CustomRowItem(
-                    title1: "السنة : ",
-                    title2: widget.documentSnapshot.data().containsKey("year")?
-                    widget.documentSnapshot["year"]:"",
-                  ),
-                  8.verticalSpace,
-                  CustomRowItem(
-                    title1: "اللون : ",
-                    title2: widget.documentSnapshot.data().containsKey("color")?
-                    widget.documentSnapshot["color"]:"",
-                  ),
-                  8.verticalSpace,
-                  CustomRowItem(
-                    title1: "نوع : ",
-                    title2: widget.documentSnapshot.data().containsKey("type")?
-                    widget.documentSnapshot["type"]:"Dinamic",
-                  ),
-                  8.verticalSpace,
-                  CustomRowItem(
-                    title1: "كيلومترات : ",
-                    title2: widget.documentSnapshot.data().containsKey("motor cc")?
-                    widget.documentSnapshot["motor cc"]:"0 to 9999",
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(16.sp),
@@ -230,7 +239,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
             Expanded(
               child: ButtonWidget(
                 mainAxisAlignment: MainAxisAlignment.center,
-                text: "افتح الموقع",
+                text: "Open Map",
                 color: AppColors.green,
                 onPressed: () {
                   navigateTo(
@@ -246,7 +255,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
             Expanded(
               child: ButtonWidget(
                 mainAxisAlignment: MainAxisAlignment.center,
-                text: "تابعنا",
+                text: "Follow Us",
                 color: AppColors.green,
                 onPressed: ()async {
                   await launchUrlFu(url: "https://www.facebook.com/share/E4BvAwbmxzGBJQj2/?mibextid=LQQJ4d");
@@ -259,7 +268,7 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
               child: ButtonWidget(
                 mainAxisAlignment: MainAxisAlignment.center,
                 color: AppColors.green,
-                text: "كلمنا",
+                text: "Call Us",
                 onPressed: ()async {
                   await launchWhatsapp(phone: "+201016738840");
                 },

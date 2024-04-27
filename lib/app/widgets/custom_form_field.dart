@@ -110,6 +110,7 @@ class CustomFormField extends StatelessWidget {
         ),
         SizedBox(
           height: height??60.h,
+          width: width,
           child: InkWell(
             onTap: onPressed,
             child: TextFormField(

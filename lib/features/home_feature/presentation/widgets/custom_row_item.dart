@@ -11,28 +11,25 @@ final String? title1;
 final String? title2;
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextWidget(
-            title:title1??"السعر : ",
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextWidget(
+          title:title1??"السعر : ",
+          titleColor: AppColors.black,
+          titleSize: 18.sp,
+        ),
+        Expanded(
+          child: TextWidget(
+            title:title2??"",
             titleColor: AppColors.black,
             titleSize: 18.sp,
+            titleFontWeight: FontWeight.w500,
+            //titleAlign: TextAlign.start,
+            titleMaxLines: 1000,
           ),
-          Expanded(
-            child: TextWidget(
-              title:title2??"",
-              titleColor: AppColors.black,
-              titleSize: 18.sp,
-              titleFontWeight: FontWeight.w500,
-              //titleAlign: TextAlign.start,
-              titleMaxLines: 1000,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
