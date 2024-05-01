@@ -1,4 +1,5 @@
 import 'package:cars_store/features/auth_feature/presentation/screens/login_screen.dart';
+import 'package:cars_store/features/bottom_navigation_feature/presentation/presentation_logic_holder/bottom_navigation_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ void main() async{
   );
   Bloc.observer = MyBlocObserver();
   await init();
-  Placemark placemark = await _getLocation();
+  Placemark placemark = await getLocation();
   myLocationName = placemark.street!;
   myLocationCity = placemark.locality!;
   runApp(
@@ -41,6 +42,9 @@ void main() async{
         ),
         BlocProvider<AuthCubit>(
           create: (BuildContext context) => AuthCubit(),
+        ),
+        BlocProvider<BottomNavigationCubit>(
+          create: (BuildContext context) => BottomNavigationCubit(),
         ),
 
       ],
@@ -107,7 +111,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Future<Placemark> _getLocation() async {
+Future<Placemark> getLocation() async {
   List<Placemark> ? placemark;
   await Geolocator.getCurrentPosition(
     desiredAccuracy: LocationAccuracy.high,

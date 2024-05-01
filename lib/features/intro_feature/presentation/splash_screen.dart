@@ -1,3 +1,4 @@
+import 'package:cars_store/features/bottom_navigation_feature/presentation/screens/bottom_navigation_screen.dart';
 import 'package:cars_store/features/home_feature/presentation/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (FirebaseAuth.instance.currentUser?.uid==null) {
         widget = const LoginScreen();
       }else{
-        widget = const HomeScreen();
+        widget = const BNBScreen();
       }
       navigateTo(widget,removeAll: true);
     });

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cars_store/features/bottom_navigation_feature/presentation/screens/bottom_navigation_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:equatable/equatable.dart';
@@ -62,7 +63,7 @@ class AuthCubit extends Cubit<AuthState> {
       email:loginEmailController.text ,
       password: loginPasswordController.text,
     ).then((value) async{
-      navigateTo(HomeScreen(),removeAll: true);
+      navigateTo(BNBScreen(),removeAll: true);
       showToast(msg: "You logged as ${value.user?.email}",
           backgroundColor: AppColors.mainColor, textColor: Colors.white);
       }).catchError((onError){
@@ -77,7 +78,7 @@ class AuthCubit extends Cubit<AuthState> {
       email:registerEmailController.text ,
       password: registerPassController.text,
     ).then((value)async{
-       navigateTo(const HomeScreen(),removeAll: true);
+       navigateTo(const BNBScreen(),removeAll: true);
       showToast(msg: "You logged as ${value.user?.email}",
           backgroundColor: AppColors.mainColor, textColor: Colors.white);
       await firebaseFireStore.collection("users").doc(FirebaseAuth.instance.currentUser!.uid).set(
@@ -89,7 +90,7 @@ class AuthCubit extends Cubit<AuthState> {
             "id":FirebaseAuth.instance.currentUser!.uid,
           },
       );
-    });
+    },);
     emit(AuthInitial());
   }
 

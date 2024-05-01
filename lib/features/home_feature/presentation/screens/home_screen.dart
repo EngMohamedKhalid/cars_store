@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geocoding/geocoding.dart';
 
 import '../../../../app/utils/app_colors.dart';
 import '../../../../app/utils/helper.dart';
@@ -36,154 +37,128 @@ class _HomeScreenState extends State<HomeScreen> {
     "https://vm.tiktok.com/ZMMqCVoaW/",
     "https://vm.tiktok.com/ZMMqCVoaW/",
   ];
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 150.w,
-            decoration: BoxDecoration(
-                color: AppColors.mainColor,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20.w),
-                  bottomRight: Radius.circular(20.w),
-                )
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                16.horizontalSpace,
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextWidget(
-                      title: "Welcome,",
-                      titleColor: Colors.white,
-                      titleSize: 18.sp,
-                    ),
-                    5.verticalSpace,
-                    FutureBuilder(
-                        future: FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser?.uid).get(),
-                        builder: (context, snapshot) {
-                          if(snapshot.hasData) {
-                            return TextWidget(
-                              title: snapshot.data?["name"]??"Mohamed Khalid",
-                              titleColor: Colors.white,
-                              titleSize: 16.sp,
-                            );
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        body: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 150.w,
+              decoration: BoxDecoration(
+                  color: AppColors.mainColor,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.w),
+                    bottomRight: Radius.circular(20.w),
+                  )
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  16.horizontalSpace,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextWidget(
+                        title: "Welcome,",
+                        titleColor: Colors.white,
+                        titleSize: 18.sp,
+                      ),
+                      5.verticalSpace,
+                      FutureBuilder(
+                          future: FirebaseFirestore.instance.collection("users")
+                              .doc(FirebaseAuth.instance.currentUser?.uid)
+                              .get(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return TextWidget(
+                                title: snapshot.data?["name"] ??
+                                    "Mohamed Khalid",
+                                titleColor: Colors.white,
+                                titleSize: 16.sp,
+                              );
+                            }
+                            return const Text("");
                           }
-                          return const Text("");
-                        }
-                    ),
-                    4.verticalSpace,
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                          size: 18.sp,
-                          color: Colors.white,
-                        ),
-                        TextWidget(
-                          title: "$myLocationCity , $myLocationName",
-                          titleColor: Colors.white,
-                          titleSize: 13.sp,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Spacer(),
-                InkWell(
-                  onTap: (){
-                    navigateTo(const AboutUSScreen());
-                  } ,
-                  child: Icon(
-                    Icons.groups,
-                    size: 30.sp,
-                    color: AppColors.white,
-                  ),
-                ),
-                16.horizontalSpace
-
-              ],
-            ),
-
-          ),
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.all(16.sp),
-              children: [
-                CarouselWidget(
-                  items:List<Widget>.generate(
-                    images.length,
-                        (index) =>
-                        InkWell(
-                          onTap: (){
-                            navigateTo(VideoPlayerScreen(url: reals[index]));
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color:  const Color(0xffD4E5D3),
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage(images[index]),
-                                ),
-                                borderRadius: BorderRadius.circular(16.sp)
-                            ),
+                      ),
+                      4.verticalSpace,
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            size: 18.sp,
+                            color: Colors.white,
                           ),
-                        ),
-                  ) ,
-                ),
-                10.verticalSpace,
-                Row(
-                  children: [
-                    TextWidget(
-                      title: "Cars For Sale",
-                      titleColor: Colors.black,
-                      titleSize: 18.sp,
-                      titleFontWeight: FontWeight.w500,
+                          TextWidget(
+                            title: "$myLocationCity , $myLocationName",
+                            titleColor: Colors.white,
+                            titleSize: 13.sp,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  InkWell(
+                    onTap: () {
+                      navigateTo(const AboutUSScreen());
+                    },
+                    child: Icon(
+                      Icons.groups,
+                      size: 30.sp,
+                      color: AppColors.white,
                     ),
-                  ],
-                ),
-                StreamBuilder(
-                  stream: FirebaseFirestore.instance.collection("cats").snapshots(),
-                  builder: (context, snapshot) {
-                    if(snapshot.hasData) {
-                      return ListView.separated(
-                        itemCount: snapshot.data?.docs.length??0,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                              onTap: () {
-                                navigateTo(AllCarsScreen(
-                                  appBarTitle: snapshot.data?.docs[index]["name"],
-                                  id: snapshot.data?.docs[index]["id"],
-                                ));
-                              },
-                              child: CustomHomeItem(
-                                image: snapshot.data?.docs[index]["image"],
-                                title: snapshot.data?.docs[index]["name"],
-                              ));
-                        },
-                        separatorBuilder: (context, index) => 16.verticalSpace,
-                      );
-                    }else {
-                      return const Center(child: Loading());
-                    }
-                  }
-                )
-              ],
+                  ),
+                  16.horizontalSpace
+
+                ],
+              ),
+
             ),
-          )
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.all(16.sp),
+                children: [
+                  StreamBuilder(
+                      stream: FirebaseFirestore.instance.collection("cats")
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.separated(
+                            itemCount: snapshot.data?.docs.length ?? 0,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                  onTap: () {
+                                    navigateTo(AllCarsScreen(
+                                      appBarTitle: snapshot.data
+                                          ?.docs[index]["name"],
+                                      id: snapshot.data?.docs[index]["id"],
+                                    ));
+                                  },
+                                  child: CustomHomeItem(
+                                    image: snapshot.data?.docs[index]["image"],
+                                    title: snapshot.data?.docs[index]["name"],
+                                  ));
+                            },
+                            separatorBuilder: (context, index) =>
+                            16.verticalSpace,
+                          );
+                        } else {
+                          return const Center(child: Loading());
+                        }
+                      }
+                  )
+                ],
+              ),
+            )
 
 
-
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    }
   }
-}
