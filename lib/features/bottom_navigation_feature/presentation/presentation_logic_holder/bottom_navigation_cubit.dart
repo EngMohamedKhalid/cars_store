@@ -11,8 +11,9 @@ class BottomNavigationCubit extends Cubit<BottomNavigationStats> {
   static BottomNavigationCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
   List<Widget> screens =const  [
-    HomeScreen(),
     Home2Screen(),
+    HomeScreen(),
+
   ];
   void changeCurrent(int index)
   {

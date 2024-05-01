@@ -36,8 +36,8 @@ class _BNBScreenState extends State<BNBScreen> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.r),
               child: BottomNavigationBar(
-                selectedItemColor: AppColors.mainColor,
-                unselectedItemColor: AppColors.black,
+                selectedItemColor: AppColors.black,
+                unselectedItemColor: AppColors.mainColor,
                 backgroundColor: AppColors.greyD8D8D8,
                 elevation: 1,
                 unselectedLabelStyle: TextStyle(
