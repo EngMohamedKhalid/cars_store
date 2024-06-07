@@ -146,7 +146,7 @@ class _Home2ScreenState extends State<Home2Screen> {
                 ),
               ),
             ),
-            200.verticalSpace,
+            250.verticalSpace,
             Row(
               children: [
                 16.horizontalSpace,
